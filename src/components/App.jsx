@@ -1,16 +1,17 @@
-import { NavLink, Route, Routes } from 'react-router-dom';
+import Collection from 'pages/Collection';
+import FilmDetails from 'pages/FilmDetails';
+import Home from 'pages/Home';
+import { Route, Routes } from 'react-router-dom';
+import Layout from './Layout';
 
 export const App = () => {
   return (
-    <div>
-      <nav>
-        <NavLink to="/">Home page</NavLink>
-        <NavLink to="/collection">Collection</NavLink>
-      </nav>
-      <Routes>
-        <Route path="/" element={<div>Home page</div>} />
-        <Route path="/collection" element={<div>Collection</div>} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="collection" element={<Collection />} />
+        <Route path="collection/:filmId" element={<FilmDetails />} />
+      </Route>
+    </Routes>
   );
 };
