@@ -1,47 +1,34 @@
+// import MoviesList from 'components/MoviesList/MoviesList';
 import { useState, useEffect } from 'react';
-import getAPI from 'services/api-service';
+// import getAPI from 'services/api-service';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
-  useEffect =
-    (() => {
-      //   getAPI()
-      //     .then(response => {
-      //       if (response.ok) {
-      //         return response.json();
-      //       }
-      //       return Promise.reject(new Error('Please try again!'));
-      //     })
-      //     .then(data => {
-      //       setMovies(data);
-      //       // setPhotos(prevState => [...prevState, ...data.hits]);
-      //     });
-    },
-    [movies]);
 
-  // const Movies = () => {
-  //   return (
-  //     <div>
-  //       <h2>Movies collection</h2>
-  //       {['movie - 1 ', 'movie - 2 ', 'movie - 3 '].map(movie => {
-  //         return (
-  //           <Link key={movie} to={`${movie}`}>
-  //             {movie}
-  //           </Link>
-  //         );
-  //       })}
-  //     </div>
-  //   );
-  // };
+  const fetchMovies = () => {
+    return fetch('https://api.themoviedb.org/3/trending/movie/day', {
+      headers: {
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYTEyYjE5ZmQ1MThlNDEzN2Q4YTJiNzFlNWQ2YWQ3NyIsInN1YiI6IjY0ZDIyMjU3OTQ1ZDM2MDBmZmNmMTZiOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ohjb2uQT05X0_S3QE3fhncaiF7rS-iXqY88hmGKTnh0',
+      },
+    })
+      .then(response => response.json())
+      .then(responseMovies => responseMovies.results);
+  };
+
+  useEffect(() => {
+    fetchMovies().then(selectedMovies => setMovies(selectedMovies));
+  }, []);
 
   return (
     <div>
       <h1>Trending today</h1>
-      {/* <ul>
-        {movies.map(movie => (
-          <li>{movie.title}</li>
+      <ul>
+        {movies.map(({ title, id }) => (
+          <li key={id}>{title}</li>
         ))}
-      </ul> */}
+      </ul>
+      {/* <MoviesList movies={movies} /> */}
     </div>
   );
 };
