@@ -1,12 +1,14 @@
 // import { useEffect } from 'react';
+import { useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 // import getAPI from 'services/api-service';
 
 const MoviesDetails = () => {
   const location = useLocation();
+  const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
   // const { movieId } = useParams();
 
-  console.log(location.state.from);
+  console.log(location);
 
   // useEffect =
   //   (() => {
@@ -18,7 +20,7 @@ const MoviesDetails = () => {
 
   return (
     <div>
-      <Link>Go back</Link>
+      <Link to={backLinkLocationRef.current}>Go back</Link>
     </div>
   );
 };

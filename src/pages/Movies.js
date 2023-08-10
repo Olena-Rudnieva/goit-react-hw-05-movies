@@ -2,11 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
 
 const Movies = () => {
-  const [movies, setMovies] = useState([
-    'movie - 1 ',
-    'movie - 2 ',
-    'movie - 3 ',
-  ]);
+  const [movies, setMovies] = useState(['movie-1', 'movie-2', 'movie-3']);
 
   const location = useLocation();
   console.log(location);
@@ -36,6 +32,7 @@ const Movies = () => {
         <button onClick={() => setSearchParams({})}>Search</button>
       </form>
       {selectedMovies.map(movie => {
+        console.log(movie);
         return (
           <Link key={movie} to={`${movie}`} state={{ from: location }}>
             {movie}
