@@ -1,4 +1,4 @@
-// import MoviesList from 'components/MoviesList/MoviesList';
+import MoviesList from 'components/MoviesList/MoviesList';
 import MoviesSearchForm from 'components/MoviesSearchForm/MoviesSearchForm';
 import { useState, useEffect } from 'react';
 // import { Link, useSearchParams, useLocation } from 'react-router-dom';
@@ -79,12 +79,7 @@ const Movies = () => {
   return (
     <>
       <MoviesSearchForm onSubmit={onChangeQuery} />
-      <ul>
-        {movies.map(({ title, id }) => (
-          <li key={id}>{title}</li>
-        ))}
-      </ul>
-      {/* <MoviesList movies={movies} /> */}
+      <MoviesList movies={movies} />
     </>
   );
 };

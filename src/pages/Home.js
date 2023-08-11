@@ -1,4 +1,4 @@
-// import MoviesList from 'components/MoviesList/MoviesList';
+import MoviesList from 'components/MoviesList/MoviesList';
 import { useState, useEffect } from 'react';
 // import getAPI from 'services/api-service';
 
@@ -23,12 +23,7 @@ const Home = () => {
   return (
     <div>
       <h1>Trending today</h1>
-      <ul>
-        {movies.map(({ title, id }) => (
-          <li key={id}>{title}</li>
-        ))}
-      </ul>
-      {/* <MoviesList movies={movies} /> */}
+      <MoviesList movies={movies} />
     </div>
   );
 };

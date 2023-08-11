@@ -1,11 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const MoviesList = movies => {
+const MoviesList = ({ movies }) => {
   return (
     <div>
       <ul>
-        {movies.map(({ title }) => (
-          <li>{title}</li>
+        {movies.map(({ title, id }) => (
+          <li key={id}>
+            <Link to={`${id}`}>{title}</Link>
+          </li>
         ))}
       </ul>
     </div>
