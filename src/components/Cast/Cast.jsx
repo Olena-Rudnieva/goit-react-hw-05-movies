@@ -22,7 +22,6 @@ const Cast = () => {
     if (movieId === '') return;
     fetchCast({ movieId })
       .then(data => {
-        console.log(data);
         setCast(data);
       })
       .catch(error => console.log(error));

@@ -18,4 +18,5 @@ const MoviesSearchForm = ({ onSubmit }) => {
     </form>
   );
 };
+
 export default MoviesSearchForm;

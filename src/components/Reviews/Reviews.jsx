@@ -22,7 +22,6 @@ const Reviews = () => {
     if (movieId === '') return;
     fetchReviews({ movieId })
       .then(data => {
-        console.log(data);
         setReviews(data);
       })
       .catch(error => console.log(error));
