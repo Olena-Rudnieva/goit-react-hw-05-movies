@@ -24,8 +24,8 @@ const Home = () => {
   return (
     <div>
       {error && <h1>Please try again!</h1>}
-      {loading && <div>Loading...</div>}
       <h1>Trending today</h1>
+      {loading && <div>Loading...</div>}
       <MoviesList movies={movies} />
     </div>
   );

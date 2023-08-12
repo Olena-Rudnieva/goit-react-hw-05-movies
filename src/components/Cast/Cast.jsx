@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchCast } from 'services/api-service';
+import { Item, List, Name } from './Cast.styled';
 
 const Cast = () => {
   const [cast, setCast] = useState([]);
@@ -34,27 +35,31 @@ const Cast = () => {
       {loading && <div>Loading...</div>}
       {cast && (
         <div>
-          <ul>
-            {cast?.map(actor => (
-              <li key={actor.id}>
-                <img
-                  src={
-                    actor.profile_path
-                      ? [
-                          `https://image.tmdb.org/t/p/w500/${actor.profile_path}`,
-                        ]
-                      : defaultImg
-                  }
-                  width={250}
-                  alt="poster"
-                />
+          {cast.length > 0 ? (
+            <List>
+              {cast?.map(actor => (
+                <Item key={actor.id}>
+                  <img
+                    src={
+                      actor.profile_path
+                        ? [
+                            `https://image.tmdb.org/t/p/w500/${actor.profile_path}`,
+                          ]
+                        : defaultImg
+                    }
+                    width={250}
+                    alt="poster"
+                  />
 
-                <p>{actor.name}</p>
+                  <Name>{actor.name}</Name>
 
-                <p>Character: {actor.character}</p>
-              </li>
-            ))}
-          </ul>
+                  <p>Character: {actor.character}</p>
+                </Item>
+              ))}
+            </List>
+          ) : (
+            <div>No information for this movie.</div>
+          )}
         </div>
       )}
     </div>

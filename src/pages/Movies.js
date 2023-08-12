@@ -44,8 +44,8 @@ const Movies = () => {
   return (
     <>
       {error && <h1>Please try again!</h1>}
-      {loading && <div>Loading...</div>}
       <MoviesSearchForm queryString={queryString} onSubmit={handleSubmit} />
+      {loading && <div>Loading...</div>}
       <MoviesList movies={movies} />
     </>
   );
