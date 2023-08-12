@@ -5,8 +5,9 @@ import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 const MoviesDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const location = useLocation();
-  console.log(location);
   const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
 
   const fetchMovie = ({ movieId }) => {
@@ -15,18 +16,24 @@ const MoviesDetails = () => {
         Authorization:
           'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYTEyYjE5ZmQ1MThlNDEzN2Q4YTJiNzFlNWQ2YWQ3NyIsInN1YiI6IjY0ZDIyMjU3OTQ1ZDM2MDBmZmNmMTZiOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ohjb2uQT05X0_S3QE3fhncaiF7rS-iXqY88hmGKTnh0',
       },
-    })
-      .then(response => response.json())
-      .then(responseMovie => responseMovie);
+    });
   };
 
   useEffect(() => {
     if (movieId === '') return;
+    setLoading(true);
     fetchMovie({ movieId })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        return Promise.reject(new Error('Please try again!'));
+      })
       .then(selectedMovie => {
         setMovie(selectedMovie);
       })
-      .catch(error => console.log(error));
+      .catch(error => setError(error))
+      .finally(() => setLoading(false));
   }, [movieId]);
 
   const defaultImg =
@@ -34,8 +41,9 @@ const MoviesDetails = () => {
 
   return (
     <div>
+      {error && <h1>Please try again!</h1>}
+      {loading && <div>Loading...</div>}
       <Link to={backLinkLocationRef.current}>Go back</Link>
-
       {movie && (
         <div>
           <img

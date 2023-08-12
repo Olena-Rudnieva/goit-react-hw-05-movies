@@ -5,9 +5,8 @@ import { useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
-
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const queryString = searchParams.get('query') ?? '';
@@ -18,36 +17,42 @@ const Movies = () => {
         Authorization:
           'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYTEyYjE5ZmQ1MThlNDEzN2Q4YTJiNzFlNWQ2YWQ3NyIsInN1YiI6IjY0ZDIyMjU3OTQ1ZDM2MDBmZmNmMTZiOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ohjb2uQT05X0_S3QE3fhncaiF7rS-iXqY88hmGKTnh0',
       },
-    })
-      .then(response => response.json())
-      .then(responseMovies => responseMovies.results);
+    });
   };
 
   useEffect(() => {
     if (queryString === '') return;
 
     fetchMovies(queryString)
-      .then(data => {
-        setMovies(data);
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        return Promise.reject(new Error('Please try again!'));
       })
-      .catch(error => console.log(error));
+      .then(data => {
+        setMovies(data.results);
+      })
+      .catch(error => setError(error))
+      .finally(() => setLoading(false));
   }, [queryString]);
 
   const handleSubmit = e => {
     e.preventDefault();
     const searchValue = e.currentTarget.elements.searchValue.value;
-    console.log(searchValue);
     setSearchParams({
       query: searchValue,
     });
-
+    setLoading(true);
+    setError(null);
     const searchField = e.currentTarget;
-
     searchField.reset();
   };
 
   return (
     <>
+      {error && <h1>Please try again!</h1>}
+      {loading && <div>Loading...</div>}
       <MoviesSearchForm queryString={queryString} onSubmit={handleSubmit} />
       <MoviesList movies={movies} />
     </>
