@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-// import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
-// import getAPI from 'services/api-service';
 
 const Reviews = () => {
   const { movieId } = useParams();
@@ -27,18 +25,12 @@ const Reviews = () => {
       .catch(error => console.log(error));
   }, [movieId]);
 
-  //   const location = useLocation();
-  //   const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
-  // const { movieId } = useParams();
-
-  //   console.log(location);
-
   return (
     <div>
-      {reviews ? (
+      {reviews.length > 0 ? (
         <div>
           <ul>
-            {reviews?.map(review => (
+            {reviews.map(review => (
               <li key={review.id}>
                 <h3>Author: {review.author}</h3>
                 <p>{review.content}</p>

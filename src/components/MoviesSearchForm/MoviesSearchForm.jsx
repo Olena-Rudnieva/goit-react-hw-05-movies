@@ -1,20 +1,8 @@
-import { useState } from 'react';
-
-const MoviesSearchForm = ({ onSubmit }) => {
-  const [query, setQuery] = useState('');
-
-  const handleChange = e => setQuery(e.currentTarget.value);
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    onSubmit(query);
-    setQuery('');
-  };
-
+const MoviesSearchForm = ({ queryString, onSubmit }) => {
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" value={query} onChange={handleChange} />
-      <button>Search</button>
+    <form onSubmit={onSubmit}>
+      <input type="text" name="searchValue" defaultValue={queryString ?? ''} />
+      <button type="submit">Search</button>
     </form>
   );
 };

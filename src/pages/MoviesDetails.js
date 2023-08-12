@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
-// import getAPI from 'services/api-service';
 
 const MoviesDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState([]);
+  const location = useLocation();
+  console.log(location);
+  const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
 
   const fetchMovie = ({ movieId }) => {
     return fetch(`https://api.themoviedb.org/3/movie/${movieId}`, {
@@ -26,13 +28,6 @@ const MoviesDetails = () => {
       })
       .catch(error => console.log(error));
   }, [movieId]);
-
-  // setMovies(selectedMovies)
-
-  const location = useLocation();
-  const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
-
-  // console.log(location);
 
   const defaultImg =
     'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';

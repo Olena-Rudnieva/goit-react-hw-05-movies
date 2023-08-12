@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-// import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
-// import getAPI from 'services/api-service';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -27,11 +25,6 @@ const Cast = () => {
       .catch(error => console.log(error));
   }, [movieId]);
 
-  //   const location = useLocation();
-  //   const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
-  // const { movieId } = useParams();
-
-  //   console.log(location);
   const defaultImg =
     'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
 
