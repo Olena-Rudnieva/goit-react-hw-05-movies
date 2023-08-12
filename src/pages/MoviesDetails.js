@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { fetchMovie } from 'services/api-service';
 
 const MoviesDetails = () => {
   const { movieId } = useParams();
@@ -9,15 +10,6 @@ const MoviesDetails = () => {
   const [error, setError] = useState(null);
   const location = useLocation();
   const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
-
-  const fetchMovie = ({ movieId }) => {
-    return fetch(`https://api.themoviedb.org/3/movie/${movieId}`, {
-      headers: {
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYTEyYjE5ZmQ1MThlNDEzN2Q4YTJiNzFlNWQ2YWQ3NyIsInN1YiI6IjY0ZDIyMjU3OTQ1ZDM2MDBmZmNmMTZiOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ohjb2uQT05X0_S3QE3fhncaiF7rS-iXqY88hmGKTnh0',
-      },
-    });
-  };
 
   useEffect(() => {
     if (movieId === '') return;
